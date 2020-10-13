@@ -88,11 +88,27 @@ public:
 
     void setY(double y);
 
+    /* 重载流提取运算符 */
+    friend istream & operator>>(istream &is,Point &point);
+    /* 重载流插入运算符 */
+    friend ostream & operator<<(ostream &os,Point &point);
+
     friend double p_p_distance(Point &point1,Point &point2);
     friend bool compositionTriangle(Point &point1,Point &point2,Point &point3);
     friend class MyLine;
     friend double point_to_line_distance(Point &point,MyLine &myLine);
 };
+
+istream & operator>>(istream &is,Point &point){
+//    string s;
+//    is >> s;
+    is >> point.x >> point.y;
+    return is;
+}
+ostream & operator<<(ostream &os,Point &point){
+    os << "Point:(" << point.x << "," << point.y << ")" << endl;
+    return os;
+}
 
 /**
  * 计算两点间的距离
@@ -193,5 +209,36 @@ double point_to_line_distance(Point &point,MyLine &myLine){
         return -distance;
     }
 }
+
+
+/**
+ * 定义圆柱体类Cylinder，它有私有成员变量r与h，分别表示圆柱体的底圆半径和高
+ * 还有必要的成员函数，包括计算底圆周长、底圆面积、圆柱体体积等
+ */
+const double PI = 3.14;
+class Cylinder{
+private:
+    double r,h; // 半径和高
+public:
+    Cylinder(double srcR,double srcH){
+        r = srcR;
+        h = srcH;
+    }
+
+    /* 计算底圆周长(2*PI*r) */
+    double getBottomPerimeter() const{
+        return 2*PI*r;
+    }
+
+    /* 计算底圆面积(PI*r*r) */
+    double getBottomArea()const{
+        return PI*r*r;
+    }
+
+    /* 计算圆柱体体积(PI*r*r*h) */
+    double getVolume()const{
+        return PI*r*r*h;
+    }
+};
 
 #endif //SELFSTUDY_CHAPTER2_HPP
